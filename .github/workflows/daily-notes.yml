@@ -20,8 +20,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.name "latiacache"
+          git config user.email "latia_cache@outlook.com"
           git add notes.txt
           git commit -m "daily notes update" || echo "No changes"
 
