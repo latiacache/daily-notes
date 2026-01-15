@@ -1,0 +1,29 @@
+name: Daily notes update
+
+on:
+  schedule:
+    - cron: "15 7 * * *" # щодня о 07:15 UTC
+  workflow_dispatch: # щоб можна було запускати вручну
+
+jobs:
+  update-notes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Update notes.txt
+        run: |
+          FILE="notes.txt"
+          echo "Daily update $(date -u +"%Y-%m-%d %H:%M:%S")" >> "$FILE"
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add notes.txt
+          git commit -m "daily notes update" || echo "No changes"
+
+      - name: Push changes
+        run: git push
